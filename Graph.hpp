@@ -57,8 +57,13 @@ public:
   Graph &operator-();
   // multiply a graph by an integer
   Graph &operator*=(const int number);
+  // replaces the cout operation
+  friend std::ostream &operator<<(std::ostream &os, const Graph &graph);
+  //increess by one postfix
+  Graph &operator++(int);
+  //increess by one prefix
+  Graph &operator++();
+  
 
-  //replaces the cout operation
-   friend std::ostream &operator<<(std::ostream &os, const Graph &graph);
 };
 } // namespace ariel

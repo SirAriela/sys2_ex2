@@ -152,9 +152,30 @@ std::ostream &operator<<(std::ostream &os, const Graph &graph) {
     for (size_t j = 0; j < graph.size - 1; j++) {
       os << to_string(graph.g[i][j]) + " , ";
     }
-    os << to_string(graph.g[i][graph.size-1]) + "]," << endl;
+    os << to_string(graph.g[i][graph.size - 1]) + "]," << endl;
   }
   return os;
 }
 
+Graph &Graph::operator++(int) {
+  for (size_t i = 0; i < size; i++) {
+    for (size_t j = 0; j < size; j++) {
+      if (getData(i, j) != 0) {
+        ++g[i][j];
+      }
+    }
+  }
+  return *this;
+}
+
+Graph &Graph::operator++() {
+  for (size_t i = 0; i < size; i++) {
+    for (size_t j = 0; j < size; j++) {
+      if (getData(i, j) != 0) {
+        ++g[i][j];
+      }
+    }
+  }
+  return *this;
+}
 } // namespace ariel

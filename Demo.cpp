@@ -103,6 +103,9 @@ int main() {
     cout << "-----------------" << endl;
     g+= g1;
     cout << g;
+    //g++;
+    ++g;
+    cout << g;
   } catch (const std::invalid_argument &e) {
     cout << e.what() << endl; // Should print: "Invalid graph: The graph is
                               // not a square matrix."
