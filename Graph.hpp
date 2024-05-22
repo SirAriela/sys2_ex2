@@ -41,29 +41,43 @@ public:
   void setSize(int change);
   size_t getSize();
 
-  // ------------------ overloading methods ------------------
+  // ------------------ overloading methods  EX 2 ------------------
 
-  // returns new graph with g1 + g2 values
+  // calculating operators -----------------------------------
+
+  //  returns new graph with g1 + g2 values
   Graph operator+(const Graph &other);
+
   // takes the left graph and add to him the right graph
   Graph &operator+=(const Graph &other);
+
   // basicly does nothing.. supoues to multiply by 1 all the graph edges
   Graph operator+();
+
   // returns new graph with g1 - g2 values
   Graph operator-(const Graph &other);
+
   // takes the left graph and subtract to him with the right graph values
   Graph &operator-=(const Graph &other);
+
   // multiply the graph edges by -1
   Graph &operator-();
+
   // multiply a graph by an integer
   Graph &operator*=(const int number);
+
   // replaces the cout operation
   friend std::ostream &operator<<(std::ostream &os, const Graph &graph);
-  //increess by one postfix
-  Graph &operator++(int);
-  //increess by one prefix
-  Graph &operator++();
-  
 
+  // increess by one postfix
+  Graph &operator++(int);
+
+  // increess by one prefix
+  Graph &operator++();
+
+  // comparison operators -------------------------------
+
+  //if g1 and g2 is equal or (g1 <= g2)and(g2<=g1)
+  bool operator==(const Graph& other);
 };
 } // namespace ariel

@@ -178,4 +178,19 @@ Graph &Graph::operator++() {
   }
   return *this;
 }
+
+bool Graph::operator==(const Graph &other) {
+  if (this->getSize() == other.size) {
+    for (size_t i = 0; i < getSize(); i++) {
+      for (size_t j = 0; j < getSize(); j++) {
+        if (this->getData(i, j != other.g[i][j])) {
+          return false;
+        }
+      }
+    }
+  } else {
+    return false;
+  }
+  return true;
+}
 } // namespace ariel
