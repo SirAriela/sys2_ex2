@@ -16,6 +16,7 @@ int Graph::getData(size_t i, size_t j) { return this->g[i][j]; }
 
 void Graph::loadGraph(vector<vector<int>> graph) {
   try {
+    int count = 0;
     bool isSquare = true;
     for (const auto &row : graph) {
       if (row.size() != graph.size()) {
@@ -28,6 +29,15 @@ void Graph::loadGraph(vector<vector<int>> graph) {
 
       int directed = isDirected();
       setDirected(directed);
+
+      for (size_t i = 0; i < size; i++) {
+        for (size_t j = 0; j < size; j++) {
+          if (g[i][j] != 0)
+            count++;
+        }
+      }
+
+      this->edges = count;
     } else {
       throw runtime_error("Input is not a valid n*n matrix.");
     }
@@ -179,17 +189,17 @@ Graph &Graph::operator++() {
   return *this;
 }
 
-bool Graph::operator==(const Graph &other) {
+bool Graph::operator==(const Graph &other) const {
   bool same_data = true;
   bool same_size = true;
   bool smallequal;
 
-  if (this->getSize() == other.size) {
+  if (this->size == other.size) {
     same_size = false;
   }
-  for (size_t i = 0; i < getSize(); i++) {
-    for (size_t j = 0; j < getSize(); j++) {
-      if (this->getData(i, j != other.g[i][j])) {
+  for (size_t i = 0; i < size; i++) {
+    for (size_t j = 0; j < size; j++) {
+      if (this->g[i][j] != other.g[i][j]) {
         same_data = false;
       }
     }
@@ -199,23 +209,76 @@ bool Graph::operator==(const Graph &other) {
   return (same_data && same_size) || smallequal;
 }
 
-bool Graph::operator<=(const Graph &other) { return true; }
+bool Graph::operator<=(const Graph &other) const {
+  if (*this < other || *this == other)
+    return true;
+  return false;
+}
 
-bool Graph::operator>=(const Graph &other) { return true; }
+bool Graph::operator>=(const Graph &other) const {
+  if (other <= *this)
+    return true;
+  return false;
+}
 
-bool Graph::operator<(const Graph &other) { return true; }
+bool Graph::operator<(const Graph &other) const {
+  bool g1IsSubGraph = true;
+
+  if (this->size > other.size)
+    return false;
+
+  for (size_t i = 0; i < size; i++) {
+    for (size_t j = 0; j < size; j++) {
+      if (g[i][j] != 0 && other.g[i][j] == 0) {
+        g1IsSubGraph = false;
+        break;
+      }
+    }
+    if (!g1IsSubGraph) {
+      break;
+    }
+  }
+
+  if (g1IsSubGraph)
+    return true;
+
+  if (this->edges > other.edges)
+    return false;
+
+  return true;
+}
 
 // if g1 > g2 => if g2 is a subgraph of g1
-bool Graph::operator>(const Graph &other) { return true; }
+bool Graph::operator>(const Graph &other) const {
+  if (other < *this)
+    return true;
+  return false;
+}
 
 // if g1 != g2
-bool Graph::operator!=(const Graph &other) { return true; }
+bool Graph::operator!=(const Graph &other) const {
+  if (!(*this == other))
+    return true;
+  return false;
+}
 
 Graph Graph::operator*(const Graph &other) {
-  vector<vector<int>> g(this->size, vector<int>(this->size, 0));
+  if (this->size != other.size) {
+    throw std::invalid_argument(
+        "Graphs must be of the same size for multiplication.");
+  }
+  size_t n = this->size;
+  vector<vector<int>> newGraph(n , vector<int>(n , 0));
+  for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            for (size_t k = 0; k < n; ++k) {
+                newGraph[i][j] += this->g[i][k] * other.g[k][j];
+            }
+        }
+    }
 
   ariel::Graph k;
-  k.loadGraph(g);
+  k.loadGraph(newGraph);
 
   return k;
 }
