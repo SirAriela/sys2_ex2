@@ -77,7 +77,25 @@ public:
 
   // comparison operators -------------------------------
 
-  //if g1 and g2 is equal or (g1 <= g2)and(g2<=g1)
-  bool operator==(const Graph& other);
+  // if g1 and g2 is equal or (g1 <= g2)and(g2<=g1)
+  bool operator==(const Graph &other);
+
+  // if g1 <= g2 return true
+  bool operator<=(const Graph &other);
+  // if g1 >= g2 return true
+  bool operator>=(const Graph &other);
+
+  // if g1 < g2 => if g1 is a subgraph of g2
+  bool operator<(const Graph &other);
+
+  // if g1 > g2 => if g2 is a subgraph of g1
+  bool operator>(const Graph &other);
+
+  //if g1 != g2
+  bool operator!=(const Graph &other);
+
+  //matrix mult ,creates new graph
+  Graph operator*(const Graph &other);
+
 };
 } // namespace ariel

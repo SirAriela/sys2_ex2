@@ -180,17 +180,43 @@ Graph &Graph::operator++() {
 }
 
 bool Graph::operator==(const Graph &other) {
+  bool same_data = true;
+  bool same_size = true;
+  bool smallequal;
+
   if (this->getSize() == other.size) {
-    for (size_t i = 0; i < getSize(); i++) {
-      for (size_t j = 0; j < getSize(); j++) {
-        if (this->getData(i, j != other.g[i][j])) {
-          return false;
-        }
+    same_size = false;
+  }
+  for (size_t i = 0; i < getSize(); i++) {
+    for (size_t j = 0; j < getSize(); j++) {
+      if (this->getData(i, j != other.g[i][j])) {
+        same_data = false;
       }
     }
-  } else {
-    return false;
   }
-  return true;
+  smallequal = !(*this < other) || !(*this > other);
+
+  return (same_data && same_size) || smallequal;
+}
+
+bool Graph::operator<=(const Graph &other) { return true; }
+
+bool Graph::operator>=(const Graph &other) { return true; }
+
+bool Graph::operator<(const Graph &other) { return true; }
+
+// if g1 > g2 => if g2 is a subgraph of g1
+bool Graph::operator>(const Graph &other) { return true; }
+
+// if g1 != g2
+bool Graph::operator!=(const Graph &other) { return true; }
+
+Graph Graph::operator*(const Graph &other) {
+  vector<vector<int>> g(this->size, vector<int>(this->size, 0));
+
+  ariel::Graph k;
+  k.loadGraph(g);
+
+  return k;
 }
 } // namespace ariel
