@@ -24,7 +24,7 @@ int main() {
   };
   g.loadGraph(graph1); // Load the graph to the object.
 
-  g.printGraph(); // Should print: "Graph with 5 vertices and 6 edges."
+  cout << g.printGraph(); // Should print: "Graph with 5 vertices and 6 edges."
   cout << Algorithm::isConnected(g) << endl; // Should print: "0" (false).
   cout << Algorithm::shortestPath(g, 3, 4) << endl; // Should print: 3-> 1 -> 4
   cout << Algorithm::isContainsCycle(g) << endl;    // Should print: the cycle
@@ -37,7 +37,7 @@ int main() {
 
   g.loadGraph(graph2); // Load the graph to the object.
 
-  g.printGraph(); // Should print: "Graph with 5 vertices and 8 edges."
+  cout << g.printGraph(); // Should print: "Graph with 5 vertices and 8 edges."
   cout << Algorithm::isConnected(g) << endl; // Should print: "0" (false).
   cout << Algorithm::shortestPath(g, 0, 4)
        << endl; // Should print: "-1" (there is no path between 0 and 4).
@@ -53,7 +53,8 @@ int main() {
   };
   try {
     g.loadGraph(graph3); // Load the graph to the object.
-    g.printGraph();      // Should print: "Graph with 6 vertices and 5 edges."
+    cout
+        << g.printGraph(); // Should print: "Graph with 6 vertices and 5 edges."
     cout << ariel::Algorithms::Algorithm::isConnected(g)
          << endl; // Should print: "0" (true).
     cout << ariel::Algorithms::Algorithm::negativeCycle(g) << endl;

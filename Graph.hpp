@@ -23,7 +23,8 @@ public:
   void loadGraph(vector<vector<int>> graph);
 
   // Function to print graph
-  void printGraph();
+  string printGraph();
+  
 
   // if directed return 1, otherwise 0
   int isDirected();
@@ -34,6 +35,7 @@ public:
 
   // returns the weight of an edge, if there is none returns ZERO
   int getData(size_t i, size_t j);
+  void setData(size_t i, size_t j,int change);
 
   void setConnected(int change);
   int getConnected();

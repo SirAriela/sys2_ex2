@@ -14,6 +14,8 @@ enum Answer { ZERO, ONE };
 Graph::Graph() {}
 int Graph::getData(size_t i, size_t j) { return this->g[i][j]; }
 
+void Graph::setData(size_t i, size_t j, int change) { this->g[i][j] = change; }
+
 void Graph::loadGraph(vector<vector<int>> graph) {
   try {
     int count = 0;
@@ -48,14 +50,16 @@ void Graph::loadGraph(vector<vector<int>> graph) {
   }
 }
 
-void Graph::printGraph() {
+string Graph::printGraph() {
+  string output = "";
   for (size_t i = 0; i < this->size; i++) {
-    cout << "[";
+    output += "[";
     for (size_t j = 0; j < this->size - 1; j++) {
-      cout << to_string(getData(i, j)) + " , ";
+      output += to_string(getData(i, j)) + " , ";
     }
-    cout << to_string(getData(i, size - 1)) + "]," << endl;
+    output += to_string(getData(i, size - 1)) + "]," + "\n";
   }
+  return output;
 }
 void Graph::setDirected(int change) { this->is_directed = change; }
 
@@ -268,14 +272,14 @@ Graph Graph::operator*(const Graph &other) {
         "Graphs must be of the same size for multiplication.");
   }
   size_t n = this->size;
-  vector<vector<int>> newGraph(n , vector<int>(n , 0));
+  vector<vector<int>> newGraph(n, vector<int>(n, 0));
   for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j) {
-            for (size_t k = 0; k < n; ++k) {
-                newGraph[i][j] += this->g[i][k] * other.g[k][j];
-            }
-        }
+    for (size_t j = 0; j < n; ++j) {
+      for (size_t k = 0; k < n; ++k) {
+        newGraph[i][j] += this->g[i][k] * other.g[k][j];
+      }
     }
+  }
 
   ariel::Graph k;
   k.loadGraph(newGraph);
