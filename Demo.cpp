@@ -47,12 +47,8 @@ int main() {
 
   // 5x5 matrix that reprsents a connected weighted graph.
   vector<vector<int>> graph3 = {
-      {0, 0, 0, 2, 5, 0},
-       {0, 0, 0, 0, 0, -3}
-       , {0, 0, 0, 0, 2, 0},
-      {2, 0, 0, 0, 0, 1}, 
-      {5, 0, 2, 0, 0, 0}, 
-       {0, -3, 0, 1, 0, 0},
+      {0, 0, 0, 2, 5, 0}, {0, 0, 0, 0, 0, -3}, {0, 0, 0, 0, 2, 0},
+      {2, 0, 0, 0, 0, 1}, {5, 0, 2, 0, 0, 0},  {0, -3, 0, 1, 0, 0},
 
   };
   try {
@@ -76,12 +72,8 @@ int main() {
 
   // 5x4 matrix that reprsents invalid graph.
   vector<vector<int>> graph4 = {
-      {0, 7, 0, -3, 0, -2}, 
-      {7, 0, 1, 0, 0, 0}, 
-      {0, 1, 0, 3, 0, 4},
-      {-3, 0, 3, 0, 0, 0}, 
-       {0, 0, 0, 0, 0, 1},
-        {-2, 0, 4, 0, 1, 0},
+      {0, 7, 0, -3, 0, -2}, {7, 0, 1, 0, 0, 0}, {0, 1, 0, 3, 0, 4},
+      {-3, 0, 3, 0, 0, 0},  {0, 0, 0, 0, 0, 1}, {-2, 0, 4, 0, 1, 0},
   };
   try {
     g.loadGraph(graph4); // Load the graph to the object.
@@ -105,22 +97,48 @@ int main() {
   try {
     ariel::Graph g1;
     g1.loadGraph(graph3);
-    g.printGraph();
-    cout << "-----------------" << endl;
-    g1.printGraph();
-    cout << "-----------------" << endl;
-    g += g1;
+    cout << "g: " << endl;
     cout << g;
-    g++;
-    ++g;
-    cout << g;
-    if (g1 > g1)
-      cout << "g1 is g1" << endl;
+    cout << "-----------------" << endl;
 
-    cout << "------------------------------------" << endl;
+    cout << "g1: " << endl;
+    cout << g1;
+    cout << "-----------------" << endl;
+
     ariel::Graph G3;
     G3 = g1 * g;
+    cout << "g3 is: g1*g" << endl;
     cout << G3;
+    cout << "-----------------" << endl;
+
+    g++;
+    cout << "g++: " << endl;
+    cout << g;
+    cout << "-----------------" << endl;
+
+    if (g1 > g1)
+      cout << "g1 is sub graph of g1" << endl;
+
+    cout << "------------------------------------" << endl;
+
+    if (g1 <= G3)
+      cout << "g1 is sub graph of g3" << endl;
+
+    cout << "------------------------------------" << endl;
+
+    if (G3 < g)
+      cout << "g3 is a sub graph of g" << endl;
+    else {
+      cout << "g3 is not a sub graph of g" << endl;
+    }
+
+    cout << "------------------------------------" << endl;
+
+    G3 *= 4;
+    cout << "g3*4 = : " << endl;
+    cout << G3;
+
+    cout << "------------------------------------" << endl;
 
   } catch (const std::invalid_argument &e) {
     cout << e.what() << endl; // Should print: "Invalid graph: The graph is
